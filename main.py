@@ -12,10 +12,12 @@ LED_HIGH = Pin(16, Pin.OUT)
 LEDs = [LED_LOW, LED_MED, LED_HIGH]
 WATER_SENSOR = ADC(Pin(26))
 
+
 def reading_to_voltage(reading):
     MAX_ADC_READING = 65535
     ADC_CONVERSION_FACTOR = 3.3 / (MAX_ADC_READING)
     return reading * ADC_CONVERSION_FACTOR
+
 
 def reset_leds(target_light_vals):
     for index, val in enumerate(target_light_vals):
@@ -46,6 +48,7 @@ def startup():
 
     time.sleep(0.5)
 
+
 def loop():
     while True:
         water_level = reading_to_voltage(WATER_SENSOR.read_u16())
@@ -64,8 +67,6 @@ def loop():
 
         print('Target led vals:', target_light_vals)
         reset_leds(target_light_vals)
-
-
 
         time.sleep(0.25)
 
